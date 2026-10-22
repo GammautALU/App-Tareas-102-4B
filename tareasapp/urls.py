@@ -11,4 +11,8 @@ urlpatterns = [
     path('eliminar/<int:id>', views.eliminar_tarea, name='eliminar_tarea'),
     ###API login
     path('api/login/', views.LoginAPIView.as_view(), name='login_api'),
+
+    ###API listar tareas
+    path('api/tareas/', views.TareasApiView.as_view(), name='api_tareas'),
+
 ]
