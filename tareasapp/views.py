@@ -159,3 +159,29 @@ class TareaDetalleApiView(APIView):
         tarea = get_object_or_404(Tarea, id=id)
         tarea.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    #put: actualizar una tarea completa
+    def put(self, request, id):
+        tarea = get_object_or_404(Tarea, id=id)
+
+        titulo = request.data.get("titulo")
+        descripcion = request.data.get("descripcion")
+        completada = request.data.get("completada")
+
+        if titulo is None or descripcion is None or completada is None:
+            return Response({
+                'error':'Debe enviar todos los datos.'
+            }, status = status.HTTP_400_BAD_REQUEST)
+
+        tarea.titulo = titulo
+        tarea.descripcion = completada
+        tarea.completada = completada
+        tarea.save()
+
+        return Response({
+            'mensaje' : 'Tarea actualizada correctamente',
+            'id' : tarea.id,
+            'titulo' : tarea.titulo,
+            'descripcion' : tarea.descripcion,
+            'completada' : tarea.completada
+        }, status = status.HTTP_200_OK)
